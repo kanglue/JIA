@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">JIA</string>
+
+    <string name="setting">Setting</string>
+    <string name="bind_ever_note">Bind EverNote</string>
+    <string name="unbind_ever_note">Unbind EverNote</string>
+    <string name="about">About</string>
+    <string name="exit">Exit</string>
+    <string name="search">Search</string>
+    <string name="more">More</string>
+    <string name="general_settings">General Settings</string>
+    <string name="other">Other</string>
+    <string name="advice_feedback">Advice Feedback</string>
+    <string name="give_favor">Give favor</string>
+    <string name="sync">Sync</string>
+
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="open_drawer_nav">Open Drawer Nav</string>
+    <string name="close_drawer_nav">Close Drawer Nav</string>
+
+    <string name="phrase">Phrase</string>
+    <string name="phrase_translation">Translation</string>
+    <string name="phrase_sample">Sample</string>
+    <string name="phrase_tags">Tags</string>
+
+    <string name="done">Done</string>
+
+    <string name="view_phrase">View Phrase</string>
+    <string name="edit_phrase">Edit Phrase</string>
+    <string name="create_phrase">Create Phrase</string>
+
+    <string name="edit">Edit</string>
+    <string name="trash">Del</string>
+    <string name="master">Master</string>
+
+
+    <string name="null_phrase">Null Phrase</string>
+
+
+    <string name="before_hour" formatted="false">%d\u0020 hours ago</string>
+    <string name="before_day" formatted="false">%d\u0020 days ago</string>
+    <string name="before_month" formatted="false">%d\u0020 months ago</string>
+    <string name="before_year" formatted="false">%d\u0020 years ago</string>
+    <string name="just_now">just now</string>
+    <string name="before_half_hour">a half of hour ago</string>
+
+    <string name="phrase_log_text" formatted="false">%s\u0020:\u0020%s</string>
+    <string name="not_save_phrase_leave_tip">Phrase have changed, are you want to leave this page without saving the phrase</string>
+
+</resources>
