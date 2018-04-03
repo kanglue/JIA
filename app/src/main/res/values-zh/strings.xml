@@ -1,22 +1,22 @@
 <resources>
     <string name="app_name">JIA</string>
 
-    <string name="setting">Setting</string>
-    <string name="bind_ever_note">Bind EverNote</string>
-    <string name="unbind_ever_note">Unbind EverNote</string>
-    <string name="about">About</string>
-    <string name="exit">Exit</string>
-    <string name="search">Search</string>
-    <string name="more">More</string>
-    <string name="general_settings">General Settings</string>
-    <string name="other">Other</string>
+    <string name="setting">设置</string>
+    <string name="bind_ever_note">绑定EverNote</string>
+    <string name="unbind_ever_note">解绑EverNote</string>
+    <string name="about">关于</string>
+    <string name="exit">退出</string>
+    <string name="search">搜索</string>
+    <string name="more">更多</string>
+    <string name="general_settings">系统配置</string>
+    <string name="other">其他</string>
     <string name="advice_feedback">Advice Feedback</string>
     <string name="give_favor">Give favor</string>
-    <string name="sync">Sync</string>
+    <string name="sync">同步</string>
 
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
-    <string name="open_drawer_nav">Open Drawer Nav</string>
-    <string name="close_drawer_nav">Close Drawer Nav</string>
+    <string name="open_drawer_nav">打开抽屉</string>
+    <string name="close_drawer_nav">关闭抽屉</string>
 
     <string name="phrase">Phrase</string>
     <string name="phrase_translation">Translation</string>
@@ -47,8 +47,9 @@
 
     <string name="phrase_log_text" formatted="false">%s\u0020:\u0020%s</string>
     <string name="not_save_phrase_leave_tip">Phrase have changed, are you want to leave this page without saving the phrase</string>
+
     <array name="drawer_content">
-        <item>ReciteBook</item>
-        <item>Calculate</item>
+        <item>记忆术</item>
+        <item>计算器</item>
     </array>
 </resources>

@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -53,12 +54,18 @@ public class PhraseActivity extends BaseActivity implements IPhraseView{
         phrasePresenter.onCreate(savedInstanceState);
 
         toolbar.inflateMenu(R.menu.menu_phrase);
+        getSupportActionBar().setHomeButtonEnabled(false);
+
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.done:
                         phrasePresenter.onToolbarClicked();
+                        break;
+                    case android.R.id.home:
+                        finishView();
                         break;
                 }
                 return true;
@@ -118,6 +125,11 @@ public class PhraseActivity extends BaseActivity implements IPhraseView{
      */
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_phrase, menu);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                finishView();
+            }
+        });
         return true;
     }
 

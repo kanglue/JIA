@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
-import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.ianglei.jia.R;
@@ -23,6 +22,8 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
+
+    private String TAG = BaseActivity.class.getSimpleName();
 
     protected ActivityComponent activityComponent;
 
@@ -117,19 +118,20 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     /**
-     * 增加了默认的返回finish事件
+     * 取消了默认的返回finish事件
      */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        switch (id) {
+//            case android.R.id.home:
+//                LJ.d(TAG, "Click home");
+//                //finish();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     public ActivityComponent getActivityComponent(){
         return activityComponent;

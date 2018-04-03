@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.ianglei.jia.JApplication;
 import com.ianglei.jia.R;
@@ -22,7 +24,9 @@ import com.ianglei.jia.presenter.PhrasePresenter;
 import com.ianglei.jia.utils.SnackbarUtils;
 import com.ianglei.jia.utils.ToolbarUtils;
 import com.ianglei.jia.view.adapter.BaseRecyclerViewAdapter;
+import com.ianglei.jia.view.adapter.DrawerListAdapter;
 import com.ianglei.jia.view.adapter.PhraseAdapter;
+import com.ianglei.jia.view.adapter.SimpleListAdapter;
 import com.pnikosis.materialishprogress.ProgressWheel;
 
 import java.util.List;
@@ -40,6 +44,10 @@ public class MainActivity extends BaseActivity implements IMainView {
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+    @BindView(R.id.left_drawer_listview)
+    ListView drawerListView;
+    @BindView(R.id.left_drawer)
+    View leftDrawerView;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
     @BindView(R.id.fab)
@@ -112,9 +120,18 @@ public class MainActivity extends BaseActivity implements IMainView {
         swipeRefreshLayout.setOnRefreshListener(mainPresenter);
     }
 
-
+    @Override
     public void initDrawerView(List<String> list){
-        //SimpleListAdapter adapter = new SimpleListAdapter(this, list);
+        SimpleListAdapter adapter = new DrawerListAdapter(this, list);
+        drawerListView.setAdapter(adapter);
+        drawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mainPresenter.onDrawerItemSelect(position);
+            }
+        });
+
+
     }
 
 
@@ -150,15 +167,35 @@ public class MainActivity extends BaseActivity implements IMainView {
     }
 
     @Override
+    //初始化Toolbar的菜单
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
+//        MenuItem item = menu.findItem(R.id.action_add);
+//        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                mainPresenter.newPhrase();
+//                return true;
+//            }
+//        });
         return true;
     }
 
     @Override
+    /**
+     * 菜单点击时的作用
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        switch (id)
+        {
+            case R.id.action_add:
+                mainPresenter.newPhrase();
+                break;
+            case android.R.id.home:
+                openOrCloseDrawer();
+                break;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -217,7 +254,7 @@ public class MainActivity extends BaseActivity implements IMainView {
 
     @Override
     public void scrollRecyclerViewToTop() {
-
+        recyclerView.smoothScrollToPosition(0);
     }
 
     @Override
@@ -246,5 +283,39 @@ public class MainActivity extends BaseActivity implements IMainView {
         menu.getMenuInflater().inflate(R.menu.menu_phrase_more, menu.getMenu());
         menu.setOnMenuItemClickListener((item -> mainPresenter.onPopupMenuClick(item.getItemId(), phrase)));
         menu.show();
+    }
+
+    @Override
+    public void setDrawerGravity(int gravity) {
+        DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams)leftDrawerView.getLayoutParams();
+        params.gravity = gravity;
+        leftDrawerView.setLayoutParams(params);
+    }
+
+    @Override
+    public void setDrawerItemChecked(int position) {
+        drawerListView.setItemChecked(position, true);
+    }
+
+    @Override
+    public void closeDrawer()
+    {
+        if(drawerLayout.isDrawerOpen(leftDrawerView)){
+            drawerLayout.closeDrawer(leftDrawerView);
+        }
+    }
+
+    @Override
+    public boolean isDrawerOpen(){
+        return drawerLayout.isDrawerOpen(leftDrawerView);
+    }
+
+    @Override
+    public void openOrCloseDrawer(){
+        if(drawerLayout.isDrawerOpen(leftDrawerView)){
+            drawerLayout.closeDrawer(leftDrawerView);
+        }else{
+            drawerLayout.openDrawer(leftDrawerView);
+        }
     }
 }

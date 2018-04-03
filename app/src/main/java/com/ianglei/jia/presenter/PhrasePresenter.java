@@ -272,8 +272,9 @@ public class PhrasePresenter extends BasePresenter implements IPresenter
                     return true;
                 }
                 phraseView.finishView();
+                return true;
             default:
-                return false;
+                return true;
         }
     }
 

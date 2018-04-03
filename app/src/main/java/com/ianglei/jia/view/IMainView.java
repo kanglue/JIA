@@ -15,6 +15,7 @@ public interface IMainView extends IView {
     void showProgress(boolean isVisible);
 
     void initToolbar();
+    void initDrawerView(List<String> list);
     void initRecyclerView(List<Phrase> phrase);
     void setLayoutManager(RecyclerView.LayoutManager manager);
 
@@ -32,4 +33,10 @@ public interface IMainView extends IView {
     void showSnackbar(int message);
 
     void showNormalPopupMenu(View view, Phrase phrase);
+
+    void setDrawerGravity(int gravity);
+    void setDrawerItemChecked(int position);
+    boolean isDrawerOpen();
+    void closeDrawer();
+    void openOrCloseDrawer();
 }

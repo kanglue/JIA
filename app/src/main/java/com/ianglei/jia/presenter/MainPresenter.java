@@ -8,6 +8,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
@@ -15,6 +16,7 @@ import android.widget.PopupMenu;
 import com.ianglei.jia.R;
 import com.ianglei.jia.di.ContextLifeCycle;
 import com.ianglei.jia.mo.DaoSession;
+import com.ianglei.jia.mo.DrawerItem;
 import com.ianglei.jia.mo.Phrase;
 import com.ianglei.jia.utils.ObservableUtils;
 import com.ianglei.jia.view.IMainView;
@@ -24,6 +26,7 @@ import com.ianglei.jia.view.PhraseActivity;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -48,6 +51,10 @@ public class MainPresenter extends BasePresenter implements IPresenter, View.OnC
 
     private IMainView mainView;
 
+    private List<String> drawerList;
+
+    private DrawerItem drawerItem = DrawerItem.getDefault();
+
     @Inject
     public MainPresenter(@ContextLifeCycle("Activity") Context context, ObservableUtils observableUtils, DaoSession daoSession) {
         this.context = context;
@@ -60,8 +67,25 @@ public class MainPresenter extends BasePresenter implements IPresenter, View.OnC
     public void onCreate(Bundle savedInstanceState) {
         mainView.initToolbar();
         initItemLayoutManager();
+        initDrawer();
+        initDrawerGravity();
         initRecyclerView();
         EventBus.getDefault().register(this);
+    }
+
+    private void initDrawer(){
+        drawerList = Arrays.asList(context.getResources()
+        .getStringArray(R.array.drawer_content));
+        mainView.initDrawerView(drawerList);
+    }
+
+    private void initDrawerGravity(){
+        mainView.setDrawerGravity(Gravity.START);
+    }
+
+    public void onDrawerItemSelect(int position){
+        drawerItem = DrawerItem.mapValueToStatus(position);
+
     }
 
     private void initItemLayoutManager()
@@ -78,10 +102,15 @@ public class MainPresenter extends BasePresenter implements IPresenter, View.OnC
         }
     }
 
+    private void switchDrawerItemPage(DrawerItem item){
+
+    }
+
     private void initRecyclerView()
     {
         mainView.showProgress(true);
 
+        //加载初始数据
         observableUtils.getLocalPhrase(daoSession)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
